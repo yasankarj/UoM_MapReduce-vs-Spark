@@ -1,6 +1,7 @@
 # UoM_MapReduce-vs-Spark
 
-This is a coursework prepared for the Module CS5229 - Big Data Analytics Technologies
+This is a coursework prepared for the Module CS5229 - Big Data Analytics Technologies.
+Author - Y. R Jayawardane - yasanka.24@cse.mrt.ac.lk
 
 ## Set up
 

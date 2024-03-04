@@ -1,0 +1,26 @@
+spark-shell
+
+val df = spark.read.format("csv").load("s3://flight-delay/Input/DelayedFlights-att1.csv")
+
+df.show()
+
+df.write.format("parquet").partitionBy("_c1").save("s3://flight-delay/Spark/DelayedFlights-Part");
+
+val df2 = spark.read.format("parquet").load("s3://flight-delay/Spark/DelayedFlights-Part")
+
+df2.show()
+
+df2.createOrReplaceTempView("delay_flights")
+
+SELECT Year, avg((CarrierDelay /ArrDelay)*100) from delay_flights GROUP BY Year
+
+val result_part1 = spark.sql("SELECT _c1 AS Year, avg((_c25 /_c15)*100) avg_carrier_delay from delay_flights WHERE _c1 >= 2003 AND _c1 <= 2010 GROUP BY Year ORDER BY Year ASC")
+
+val result_part1 = spark.sql("SELECT _c1 AS Year, avg((_c27 /_c15)*100) avg_nas_delay from delay_flights WHERE _c1 >= 2003 AND _c1 <= 2010 GROUP BY Year ORDER BY Year ASC")
+
+val result_part1 = spark.sql("SELECT _c1 AS Year, avg((_c26 /_c15)*100) avg_weather_delay from delay_flights WHERE _c1 >= 2003 AND _c1 <= 2010 GROUP BY Year ORDER BY Year ASC")
+
+val result_part1 = spark.sql("SELECT _c1 AS Year, avg((_c29 /_c15)*100) avg_late_aircraft_delay from delay_flights WHERE _c1 >= 2003 AND _c1 <= 2010 GROUP BY Year ORDER BY Year ASC")
+
+val result_part1 = spark.sql("SELECT _c1 AS Year, avg((_c28 /_c15)*100) avg_security_delay from delay_flights WHERE _c1 >= 2003 AND _c1 <= 2010 GROUP BY Year ORDER BY Year ASC")
+
